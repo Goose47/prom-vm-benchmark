@@ -19,7 +19,7 @@
 - name: Unarchive VictoriaMetrics binary
   ansible.builtin.unarchive:
     src: /tmp/victoriametrics.tar.gz
-    dest: /opt/victoriametrics
+    dest: /opt
     remote_src: true
     mode: 744
     owner: victoriametrics

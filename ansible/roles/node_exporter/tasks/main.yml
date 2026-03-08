@@ -19,7 +19,7 @@
 - name: Unarchive Node Exporter binary
   ansible.builtin.unarchive:
     src: /tmp/node_exporter.tar.gz
-    dest: /opt/node_exporter
+    dest: /opt
     remote_src: true
     mode: 744
     owner: node_exporter

@@ -19,7 +19,7 @@
 - name: Unarchive Prometheus binary
   ansible.builtin.unarchive:
     src: /tmp/prometheus.tar.gz
-    dest: /opt/prometheus
+    dest: /opt
     remote_src: true
     mode: 744
     owner: prometheus
