@@ -1,2 +1,6 @@
 terraform/key.json
 .vscode
+.env
+**/.terraform*
+**/terraform.tfstate*
+.venv
