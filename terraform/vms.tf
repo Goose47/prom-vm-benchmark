@@ -20,6 +20,7 @@ resource "yandex_compute_instance" "worker" {
 
   network_interface {
     subnet_id = yandex_vpc_subnet.default.id
+    ip_address = "192.168.0.1"
   }
 
   metadata = {
@@ -49,6 +50,7 @@ resource "yandex_compute_instance" "victoriametrics" {
 
   network_interface {
     subnet_id = yandex_vpc_subnet.default.id
+    ip_address = "192.168.0.2"
   }
 
   metadata = {
@@ -79,6 +81,7 @@ resource "yandex_compute_instance" "prometheus" {
 
   network_interface {
     subnet_id = yandex_vpc_subnet.default.id
+    ip_address = "192.168.0.3"
   }
 
   metadata = {
@@ -109,6 +112,7 @@ resource "yandex_compute_instance" "master-monitoring" {
   network_interface {
     subnet_id = yandex_vpc_subnet.default.id
     nat       = true
+    ip_address = "192.168.0.4"
   }
 
   metadata = {
