@@ -21,7 +21,7 @@
     src: /tmp/prometheus.tar.gz
     dest: /opt
     remote_src: true
-    mode: 744
+    mode: 0744
     owner: prometheus
     group: prometheus
 
