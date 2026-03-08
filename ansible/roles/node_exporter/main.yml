@@ -1,0 +1,37 @@
+---
+- name: Download Node Exporter binary
+  ansible.builtin.get_url:
+    url: https://github.com/prometheus/node_exporter/releases/download/v1.10.2/node_exporter-1.10.2.linux-amd64.tar.gz
+    dest: /tmp/node_exporter.tar.gz
+
+- name: Create node_exporter system group
+  ansible.builtin.group:
+    name: node_exporter
+    state: present
+
+- name: Create node_exporter system user
+  ansible.builtin.user:
+    name: node_exporter
+    group: node_exporter
+    state: present
+    shell: /sbin/nologin
+
+- name: Unarchive Node Exporter binary
+  ansible.builtin.unarchive:
+    src: /tmp/node_exporter.tar.gz
+    dest: /opt/node_exporter
+    remote_src: true
+    mode: 744
+    owner: node_exporter
+    group: node_exporter
+
+- name: Template Node Exporter systemd service
+  ansible.builtin.template:
+    src: templates/node_exporter.service.j2
+    dest: /etc/systemd/system/node_exporter.service
+
+- name: Ensure Node Exporter systemd service is enabled
+  ansible.builtin.systemd_service:
+    name: node_exporter
+    state: started
+    enabled: true

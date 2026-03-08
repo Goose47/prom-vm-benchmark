@@ -1,0 +1,37 @@
+---
+- name: Download VictoriaMetrics binary
+  ansible.builtin.get_url:
+    url: https://github.com/VictoriaMetrics/VictoriaMetrics/releases/download/v1.137.0/victoria-metrics-linux-amd64-v1.137.0.tar.gz
+    dest: /tmp/victoriametrics.tar.gz
+
+- name: Create VictoriaMetrics system group
+  ansible.builtin.group:
+    name: victoriametrics
+    state: present
+
+- name: Create VictoriaMetrics system user
+  ansible.builtin.user:
+    name: victoriametrics
+    group: victoriametrics
+    state: present
+    shell: /sbin/nologin
+
+- name: Unarchive VictoriaMetrics binary
+  ansible.builtin.unarchive:
+    src: /tmp/victoriametrics.tar.gz
+    dest: /opt/victoriametrics
+    remote_src: true
+    mode: 744
+    owner: victoriametrics
+    group: victoriametrics
+
+- name: Template VictoriaMetrics systemd service
+  ansible.builtin.template:
+    src: templates/victoriametrics.service.j2
+    dest: /etc/systemd/system/victoriametrics.service
+
+- name: Ensure VictoriaMetrics systemd service is enabled
+  ansible.builtin.systemd_service:
+    name: victoriametrics
+    state: started
+    enabled: true

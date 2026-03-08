@@ -1,0 +1,11 @@
+[Unit]
+Description=Victoriametrics
+
+[Service]
+User=victoriametrics
+Group=victoriametrics
+ExecStart=/opt/victoriametrics
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

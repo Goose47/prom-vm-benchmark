@@ -1,0 +1,37 @@
+---
+- name: Download Prometheus binary
+  ansible.builtin.get_url:
+    url: https://github.com/prometheus/prometheus/releases/download/v3.10.0/prometheus-3.10.0.linux-amd64.tar.gz
+    dest: /tmp/prometheus.tar.gz
+
+- name: Create prometheus system group
+  ansible.builtin.group:
+    name: prometheus
+    state: present
+
+- name: Create prometheus system user
+  ansible.builtin.user:
+    name: prometheus
+    group: prometheus
+    state: present
+    shell: /sbin/nologin
+
+- name: Unarchive Prometheus binary
+  ansible.builtin.unarchive:
+    src: /tmp/prometheus.tar.gz
+    dest: /opt/prometheus
+    remote_src: true
+    mode: 744
+    owner: prometheus
+    group: prometheus
+
+- name: Template Prometheus systemd service
+  ansible.builtin.template:
+    src: templates/prometheus.service.j2
+    dest: /etc/systemd/system/prometheus.service
+
+- name: Ensure Prometheus systemd service is enabled
+  ansible.builtin.systemd_service:
+    name: prometheus
+    state: started
+    enabled: true

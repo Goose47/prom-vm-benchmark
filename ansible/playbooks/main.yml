@@ -2,19 +2,23 @@
 - name: Set up node with node exporter and Nginx
   hosts: worker
   become: true
-  tasks:
+  roles:
+    - node_exporter
 
 - name: Set up VictoriaMetrics node
   hosts: victoriametrics
   become: true
-  tasks: 
+  roles:
+    - victoriametrics
+    - node_exporter
 
 - name: Set up Prometheus node
   hosts: prometheus
   become: true
-  tasks: 
+  roles:
+    - prometheus
+    - node_exporter
 
-- name: Set up monitoring node
-  hosts: master-monitoring
-  become: true
-  tasks: 
+# - name: Set up monitoring node
+#   hosts: master-monitoring
+#   become: true
