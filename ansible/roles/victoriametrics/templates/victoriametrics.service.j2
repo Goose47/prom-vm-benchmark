@@ -4,7 +4,7 @@ Description=Victoriametrics
 [Service]
 User=victoriametrics
 Group=victoriametrics
-ExecStart=/opt/victoria-metrics-prod
+ExecStart=/opt/victoria-metrics-prod -promscrape.config=/etc/victoriametrics/victoriametrics.yml
 Restart=always
 
 [Install]

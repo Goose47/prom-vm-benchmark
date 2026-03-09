@@ -25,6 +25,23 @@
     owner: victoriametrics
     group: victoriametrics
 
+- name: Configure /etc/hosts
+  ansible.builtin.blockinfile:
+    path: /etc/hosts
+    block: |
+      {% for  in range(victoriametrics_host_number) %}
+      192.168.10.10 host-{{ n }}
+      {% endfor %}
+    insertafter: EOF
+
+- name: Deploy victoriametrics.yml configuration file
+  ansible.builtin.template:
+    src: victoriametrics.yml.j2
+    dest: /etc/victoriametrics/victoriametrics.yml
+    owner: victoriametrics
+    group: victoriametrics
+    mode: 0644
+
 - name: Template VictoriaMetrics systemd service
   ansible.builtin.template:
     src: templates/victoriametrics.service.j2
@@ -33,6 +50,6 @@
 - name: Ensure VictoriaMetrics systemd service is enabled
   ansible.builtin.systemd_service:
     name: victoriametrics
-    state: started
+    state: restarted
     enabled: true
     daemon_reload: true

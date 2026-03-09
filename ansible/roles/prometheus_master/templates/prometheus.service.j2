@@ -1,0 +1,11 @@
+[Unit]
+Description=Prometheus
+
+[Service]
+User=prometheus
+Group=prometheus
+ExecStart=/opt/prometheus-3.10.0.linux-amd64/prometheus
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

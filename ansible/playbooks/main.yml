@@ -4,6 +4,7 @@
   become: true
   roles:
     - node_exporter
+    - nginx
 
 - name: Set up VictoriaMetrics node
   hosts: victoriametrics
@@ -19,6 +20,9 @@
     - prometheus
     - node_exporter
 
-# - name: Set up monitoring node
-#   hosts: master-monitoring
-#   become: true
+- name: Set up monitoring node
+  hosts: master-monitoring
+  become: true
+  roles:
+    - prometheus_master
+    - grafana

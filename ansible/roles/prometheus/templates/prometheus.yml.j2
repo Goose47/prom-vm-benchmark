@@ -1,0 +1,12 @@
+global:
+  scrape_interval: 15s
+scrape_configs:
+  - job_name: 'nodes'
+    static_configs:
+      - targets:
+        {% for n in range(prometheus_host_number) %}
+        - node-{{ n }}:9200
+        {% endfor %}
+    labels:
+      host_number: {{ n }}
+      environment: production
