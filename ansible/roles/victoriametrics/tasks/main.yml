@@ -34,6 +34,13 @@
       {% endfor %}
     insertafter: EOF
 
+- name: Create the /etc/victoriametrics directory
+  ansible.builtin.file:
+    path: /etc/victoriametrics
+    state: directory
+    group: victoriametrics
+    owner: victoriametrics
+
 - name: Deploy victoriametrics.yml configuration file
   ansible.builtin.template:
     src: victoriametrics.yml.j2
