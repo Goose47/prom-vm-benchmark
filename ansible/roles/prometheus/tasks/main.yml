@@ -34,10 +34,17 @@
   ansible.builtin.blockinfile:
     path: /etc/hosts
     block: |
-      {% for  in range(prometheus_host_number) %}
+      {% for n in range(prometheus_host_number) %}
       192.168.10.10 host-{{ n }}
       {% endfor %}
     insertafter: EOF
+
+- name: Create the /etc/prometheus directory
+  ansible.builtin.file:
+    path: /etc/prometheus
+    state: directory
+    group: prometheus
+    owner: prometheus
 
 - name: Deploy prometheus.yml configuration file
   ansible.builtin.template:
