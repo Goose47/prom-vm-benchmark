@@ -30,15 +30,6 @@
     src: templates/prometheus.service.j2
     dest: /etc/systemd/system/prometheus.service
 
-- name: Configure /etc/hosts
-  ansible.builtin.blockinfile:
-    path: /etc/hosts
-    block: |
-      {% for n in range(prometheus_host_number) %}
-      192.168.10.10 host-{{ n }}
-      {% endfor %}
-    insertafter: EOF
-
 - name: Deploy prometheus.yml configuration file
   ansible.builtin.template:
     src: prometheus.yml.j2
