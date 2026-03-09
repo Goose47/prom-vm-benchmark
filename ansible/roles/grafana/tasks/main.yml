@@ -1,10 +1,4 @@
 ---
-- name: Download Grafana GPG key
-  ansible.builtin.get_url:
-    url: https://apt.grafana.com/gpg-full.key
-    dest: /etc/apt/keyrings/grafana.asc
-    mode: 0644
-
 - name: Add Grafana APT repository
   ansible.builtin.apt_repository:
     repo: "deb [trusted=yes] https://mirror.yandex.ru/mirrors/packages.grafana.com/oss/deb/ stable main"
