@@ -6,7 +6,7 @@ scrape_configs:
       - targets:
         {% for n in range(prometheus_host_number) %}
         - node-{{ n }}:9200
+        labels:
+            host_number: {{ n }}
+            environment: production
         {% endfor %}
-    labels:
-      host_number: {{ n }}
-      environment: production
