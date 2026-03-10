@@ -6,12 +6,8 @@ scrape_configs:
       - targets:
         - 192.168.10.20:8428
         - 192.168.10.20:9100
-    labels:
-      environment: production
   - job_name: prometheus
     static_configs:
       - targets:
         - 192.168.10.30:9090
         - 192.168.10.30:9100
-    labels:
-      environment: production
