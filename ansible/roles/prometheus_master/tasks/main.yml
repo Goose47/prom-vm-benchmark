@@ -45,6 +45,13 @@
     group: prometheus
     mode: 0644
 
+- name: Create /data directory
+  ansible.builtin.file:
+    path: /data
+    state: directory
+    group: prometheus
+    owner: prometheus
+
 - name: Ensure Prometheus systemd service is enabled
   ansible.builtin.systemd_service:
     name: prometheus
