@@ -54,6 +54,13 @@
     src: templates/victoriametrics.service.j2
     dest: /etc/systemd/system/victoriametrics.service
 
+- name: Create /victoria-metrics-data directory
+  ansible.builtin.file:
+    path: /victoria-metrics-data
+    state: directory
+    group: victoriametrics
+    owner: victoriametrics
+
 - name: Ensure VictoriaMetrics systemd service is enabled
   ansible.builtin.systemd_service:
     name: victoriametrics
