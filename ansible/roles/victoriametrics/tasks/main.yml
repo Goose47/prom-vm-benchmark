@@ -30,7 +30,7 @@
     path: /etc/hosts
     block: |
       {% for n in range(victoriametrics_host_number) %}
-      192.168.10.10 host-{{ n }}
+      192.168.10.10 node-{{ n }}
       {% endfor %}
     insertafter: EOF
 
